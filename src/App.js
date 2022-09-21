@@ -12,10 +12,20 @@ class App extends React.Component {
 }
  addUser=(event)=>{
   let uparray=  this.state.myArray;
+
  uparray.push(this.state.nom)
   this.setState({ myArray:uparray})
   this.setState({nom:''})
 event.preventDefault();
+}
+delete= (x)=>{
+  let uparray=  this.state.myArray;
+
+  if (x > -1) { // only splice array when item is found
+    uparray.splice(x, 1); 
+    this.setState({ myArray:uparray})
+  this.setState({nom:''})
+  }
 }
 render()
 {
@@ -29,9 +39,10 @@ render()
           <button type="submit">ajouter</button>
     </form>
   <h1> Liste des candidats </h1>
-  {this.state.myArray.map(name => (
+  {this.state.myArray.map((name,index) => (
   <li>
   {name}
+  <button onClick={() => this.delete(index)}>x</button>
   </li>
   ))}
   </div>
